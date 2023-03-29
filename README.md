@@ -2,7 +2,9 @@
 
 ## To launch run: 
 - `docker-compose up --build`
-- `siege -f urls.txt -c${CONCURRENCY} -t1m`
+- Oridnary cache: `siege -b -t10m -c300 'http://127.0.0.1:9000/cache'`
+- Probabilistic eviction cache: `siege -b -t10m -c300 'http://127.0.0.1:9000/cache'`
+
 
 
 ## Results Table
@@ -28,7 +30,6 @@ Shortest transaction:           0.00
 
 ### *Ordinary cache*
 ```
-Lifting the server siege...
 Transactions:                2474214 hits
 Availability:                 100.00 %
 Elapsed time:                 600.16 secs
