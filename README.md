@@ -1,6 +1,7 @@
 # Load testing homework:
 
 ## To launch run: 
+- `cp sentinel-template/* sentinel`
 - `docker-compose up --build`
 - Oridnary cache: `siege -b -t10m -c300 'http://127.0.0.1:9000/cache'`
 - Probabilistic eviction cache: `siege -b -t10m -c300 'http://127.0.0.1:9000/cache'`
