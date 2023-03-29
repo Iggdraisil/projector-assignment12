@@ -7,7 +7,7 @@
 
 ## Results Table
 ### 17:20-17:30 - ordinary cache;
-### 16:40-16:50 - cache with probabilistic eviction;
+### 16:35-16:45 - cache with probabilistic eviction;
 ![image](https://user-images.githubusercontent.com/44341837/228574713-0cd44b1d-6aa1-4a29-9882-cbf6b3ab26e0.png)
 
 ### *Probabilistic cache*:
@@ -26,7 +26,7 @@ Longest transaction:            3.26
 Shortest transaction:           0.00
 ```
 
-## Ordinary cache
+### *Ordinary cache*
 ```
 Lifting the server siege...
 Transactions:                2474214 hits
