@@ -2,6 +2,7 @@ package main
 
 import (
 	//  "bytes"
+	rand2 "crypto/rand"
 	"database/sql"
 	"encoding/json"
 	"fmt"
@@ -42,7 +43,7 @@ func main() {
 			"redis-sentinel3:5000",
 		},
 	})
-	db, err := sql.Open("postgres", "host=localhost user=postgres password=1234 sslmode=disable database=mydb")
+	db, err := sql.Open("postgres", "host=postgres user=postgres password=1234 sslmode=disable database=mydb")
 	db.SetMaxOpenConns(100000)
 	checkErr(err)
 	defer func(db *sql.DB) {
@@ -89,6 +90,28 @@ func main() {
 			c.JSON(200, gin.H{
 				"data": result.Value,
 			})
+		}
+	})
+	router.GET("/ingest", func(c *gin.Context) {
+		b := make([]byte, 3000)
+		_, _ = rand2.Read(b)
+		result := rdb.Set(c, fmt.Sprintf("data-%d", rand.Int()), b, time.Duration(0))
+		if result.Err() != nil {
+			c.JSON(500, result.Err().Error())
+			return
+		} else {
+			c.JSON(200, result.Val())
+		}
+	})
+	router.GET("/ingest-expired", func(c *gin.Context) {
+		b := make([]byte, 3000)
+		_, _ = rand2.Read(b)
+		result := rdb.Set(c, fmt.Sprintf("data-%d", rand.Int()), b, 100*time.Second)
+		if result.Err() != nil {
+			c.JSON(500, result.Err().Error())
+			return
+		} else {
+			c.JSON(200, result.Val())
 		}
 	})
 	err = router.Run(":9000")
